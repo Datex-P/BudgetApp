@@ -30,7 +30,7 @@ let userDataBase = {
 	}
 }
 
-   /*currentlyLoggedIn is important so that the clear button works and the budget, balanceDisplay of the current user can be reset*/
+/*currentlyLoggedIn is important so that the clear button works and the budget, balanceDisplay of the current user can be reset*/
 
 document.getElementById('loginButton').onclick = function () {
 	let userNameExists = userDataBase[loginName.value];
