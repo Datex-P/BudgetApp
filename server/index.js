@@ -2,8 +2,12 @@ var express = require('express')
 var app = express();
 var fs = require('fs');
 let data = require('./output.json');
-
 app.use(express.json())
+const MongoClient = require('mongodb').MongoClient;
+const uri = "mongodb+srv://fabian:qwerty12345@cluster.ptzqt.mongodb.net/?w=majority";
+
+
+
 
 
 
@@ -24,9 +28,24 @@ app.post('/', (req,res)=>{
 
   users[occupation][city].push(other)
   
-  fs.writeFile('./output.json',JSON.stringify(users),()=>{
-    res.json(other)
-  });
+  // fs.writeFile('./output.json',JSON.stringify(users),()=>{});
+  MongoClient.connect(uri, (err,client) => {
+    if(err){
+      res.json(err)
+    }else{
+      const collection = client.db("Fabian").collection("budgetApp");
+      
+      collection.insertOne(req.body,(err,result)=>{
+        if(err){
+          res.json(err)
+        }else{
+          res.json(result)
+        }
+        client.close();
+      })
+    }
+    
+  })
 
 
   
