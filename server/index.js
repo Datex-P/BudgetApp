@@ -1,12 +1,18 @@
 var express = require('express')
 var app = express();
+const port = 3333
+const path = require('path');
+app.use(express.static('client'));
+
+
 var fs = require('fs');
-let data = require('./output.json');
+// let data = require('./output.json');
 app.use(express.json())
+app.use(express.urlencoded())
+
+
 const MongoClient = require('mongodb').MongoClient;
 const uri = "mongodb+srv://fabian:qwerty12345@cluster.ptzqt.mongodb.net/?w=majority";
-
-
 
 
 
@@ -15,6 +21,16 @@ const uri = "mongodb+srv://fabian:qwerty12345@cluster.ptzqt.mongodb.net/?w=major
 // app.get('/:param',(req,res)=>{
 //   res.send('Hi, nice to meet your on our resorse '+req.params.param)
 // })
+
+app.post('/formhandler',(req,res)=>{
+  fs.writeFile('./output.json',JSON.stringify(req.body),()=>{
+    res.send('your form was sended succfully')
+  });
+})
+
+app.get('/',(req,res)=>{
+  res.sendFile(path.join(__dirname+'/client/index.html'))
+})
 
 app.post('/', (req,res)=>{
   let users = data
@@ -28,7 +44,7 @@ app.post('/', (req,res)=>{
 
   users[occupation][city].push(other)
   
-  // fs.writeFile('./output.json',JSON.stringify(users),()=>{});
+  
   MongoClient.connect(uri, (err,client) => {
     if(err){
       res.json(err)
@@ -79,4 +95,4 @@ app.use((req,res)=>{
   res.send(`sorry no such directory ${req.originalUrl}` )
 })
 
-app.listen(3333, ()=>console.log('hello'))
+app.listen(port, ()=>console.log(`hello app is running om port: ${port}`))
