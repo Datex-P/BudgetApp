@@ -16,16 +16,43 @@ const uri = "mongodb+srv://fabian:qwerty12345@cluster.ptzqt.mongodb.net/?w=major
 
 
 
-
+let object = {}
 
 // app.get('/:param',(req,res)=>{
 //   res.send('Hi, nice to meet your on our resorse '+req.params.param)
 // })
 
 app.post('/formhandler',(req,res)=>{
-  fs.writeFile('./output.json',JSON.stringify(req.body),()=>{
-    res.send('your form was sended succfully')
-  });
+  // fs.writeFile('./output.json',JSON.stringify(req.body),()=>{
+  //   res.send('your form was sended succfully')
+  // });
+  var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
+  MongoClient.connect(uri, (err,client) => {
+    if(err){
+      res.json(err)
+    }else{
+      const collection = client.db("Fabian").collection("budgetApp");
+      
+      collection.findOne(req.body,(err,result)=>{
+        if(err){
+          res.json(err)
+        }else{
+          if(result === null){
+            if(!object[ip]){
+              object[ip] = 0
+            }
+            object[ip]+= 1
+            res.send(`you have ${object[ip]} wrong inputs`)
+          }else{
+            res.json(result)
+          }
+          
+        }
+        client.close();
+      })
+    }
+    
+  })
 })
 
 app.get('/',(req,res)=>{
