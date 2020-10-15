@@ -112,27 +112,42 @@ registerButton.onclick = function () {
 			document.querySelector('#eightCharactersSrc').src = 'checkmark.svg';
 			document.querySelector('#capitalLetterSrc').src = 'checkmark.svg';
 
-			userDataBase[newUserLoginName.value]={
-				budget: 0,
-				expenses: 0,
-				history:[],
-				password: newUserPassword.value
-			}
-		
 			document.getElementById('innerRegisterPage').style.display='none';
-
 			spinner.style.display='block';
 			welcomeMessage.innerHTML = `Hello ${newUserLoginName.value}, your account gets activated`;
 			
-			setTimeout(function(){
-				startRender(userDataBase[newUserLoginName.value],newUserLoginName.value);
-				currentlyLoggedIn =  newUserLoginName.value;
+			fetch('/register',{
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					username: newUserLoginName.value,
+					budget: 0,
+					expenses: 0,
+					history:[],
+					pas$word: newUserPassword.value
+				})
+			})
+			.then(data=>data.json())
+			.then(user=>{
+				startRender(user, user.username);
+				currentlyLoggedIn =  user.username;
 				newUserLoginName.value = '';
 				newUserPassword.value = '';
 				spinner.style.display='none';
 				welcomeMessage.innerHTML = '';
 				document.getElementById('innerRegisterPage').style.display='block';
-			}, 2000);
+			})
+			// userDataBase[newUserLoginName.value]={
+			// 	budget: 0,
+			// 	expenses: 0,
+			// 	history:[],
+			// 	password: newUserPassword.value
+			// }
+		
+		
+
 		
 			document.querySelector('#oneNumberSrc').src = 'redCross.svg';
 			document.querySelector('#eightCharactersSrc').src = 'redCross.svg';

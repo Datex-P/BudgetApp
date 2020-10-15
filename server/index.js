@@ -21,6 +21,26 @@ let object = {}
 // app.get('/:param',(req,res)=>{
 //   res.send('Hi, nice to meet your on our resorse '+req.params.param)
 // })
+app.post('/register',(req,res)=>{
+
+  MongoClient.connect(uri, (err,client) => {
+    if(err){
+      res.json(err)
+    }else{
+      const collection = client.db("Fabian").collection("budgetApp");
+      
+      collection.insertOne(req.body,(err,result)=>{
+        if(err){
+          res.json(err)
+        }else{
+          res.json(result.ops[0])
+        }
+        client.close();
+      })
+    }
+    
+  })
+})
 
 app.post('/formhandler',(req,res)=>{
   // fs.writeFile('./output.json',JSON.stringify(req.body),()=>{
