@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+	<title>repl.it</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div style="background-color: #B5D6B2; width: 190px; height: 400px; margin: 0 auto; padding: 20px; border-radius: 15px;" id='registerAndLoginContainer'>
+
+	    <div id='registerPageContainer' style="display: none; flex-direction: column; align-items: center; justify-content: space-around">
+
+            <img src="coins-solid.svg" style="width: 30px" "height: 10px">
+
+
+
+            <div id='innerRegisterPage'>
+                <div style="width: 100%; text-align: center; margin-top: 25px">Budget Master
+
+                    <div style="font-size: 26px; margin-top: 30px">Register</div> 
+
+                    <div style="display: flex; margin-top: 40px">
+                        <img src="user-solid.svg" style="width: 16px; margin-right: 10px; margin-bottom: 3px">
+                        <input class="buttonPassWordandReg" id="newUserLoginName" type="text" style="width: 80%">
+                    </div>
+
+                    <div style="display: flex; margin-top: 10px">
+                        <img src="key-solid.svg" style="width: 16px; margin-right: 10px; margin-bottom: 1px">
+                        <input class="buttonPassWordandReg" type="password"   id="newUserPassword"  style="width: 80%; margin-top: 15px" >
+                    </div>
+                    <div id="passwordRequirements" onmouseleave="hide(this)" style="display: none; width: 190px; flex-direction: column; margin-top:10px; margin-bottom:5px; align-items: flex-start;font-size: small;border: 1px black solid">
+                        <div>Your password must meet these requirements:</div>
+                        <div id="capitalLetter"><img id="capitalLetterSrc" src="redCross.svg" style="width: 10px; margin-right: 3px; margin-left: 20px">At least <strong>one capital letter</strong></div>
+                        <div id="oneNumber"><img id="oneNumberSrc" src="redCross.svg" style="width: 10px; margin-right: 3px; margin-left:20px">At least <strong>one number</strong></div>
+                        <div id="eightCharacters"><img id="eightCharactersSrc" src="redCross.svg" style="width: 10px; margin-right: 3px; margin-left: 20px">Be at least <strong>8 characters</strong></div>   
+                    </div>
+
+
+                    <button id="registerButton" style="width: 80%; color: white; border-radius: 8px; border-color: #53131E; padding: 5px; background-color: #53131E;margin-top: 90px">
+                    Register
+                    </button>
+                    <div id='backToSignIn' style="margin-top: 8px; font-size: small">Already a user? <strong>Sign In</strong></div>
+                </div> 
+            </div>
+            
+            <div style="margin-top:100px; text-align:center" id="welcomeMessage"></div>
+                <div style="display:none" class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>    
+                </div>    
+      </div>
+
+
+
+      <div id='loginPage' style="display: flex; flex-direction: column; align-items: center">
+
+          <img src="coins-solid.svg" style="width: 30px" "height: 10px">
+
+          <div style="width: 100%; text-align: center; margin-top: 25px">Budget Master</div>
+
+          <div style="font-size: 26px; margin-top: 30px">Login</div>
+					<!-- <script>
+						function handlerInput(event){
+							console.log('input',event.target.value)
+						}
+						function handlerChange(event){
+							console.log('change',event.target.value)
+						}
+					</script> -->
+
+          <div style="display: flex; margin-top: 40px">
+              <img src="user-solid.svg" style="width: 16px; margin-right: 10px; margin-bottom: 3px">
+              <input class="buttonPassWordandReg" id="userNameInput" type="text" style="width: 80%" autofocus>
+          </div>
+
+          <div style="display: flex; margin-top: 10px">
+              <img src="key-solid.svg" style="width: 16px; margin-right: 10px; margin-bottom: 1px">
+              <input class="buttonPassWordandReg" type="password" id="userPassWord"  style="width: 80%; margin-top: 15px">
+          </div>
+
+
+         
+
+          <div style="display: flex; flex-direction: column; align-items: center; justify-content: space-around; ">
+        
+              <button id="loginButton" style="width: 80%; color: white; border-radius: 8px; border-color: #53131E; padding: 5px; background-color: #53131E;margin-top: 90px"> Login</button>
+
+              <div id='signUpNow' style="margin-top: 8px; font-size: small">Don't have an account? <strong>Sign up Now</strong></div>
+              
+          </div>
+      </div>
+  </div>
+     
+  <div id='mainMenuContainer' style="display: none; padding:20px; background-color: #B5D6B2; width: 80%; border-radius: 5px">
+	 <div id="innerMainContainer">
+      
+      <div style="display: flex">
+			    <div>BUDGET APP</div>
+      </div>
+			
+			<div style="display: flex; justify-content: space-between;align-items: flex-start">
+			    <div style="display: flex; justify-content: center; border: 3px solid #FFFACC; width: 400px; height: 200px; flex-direction: column; border-radius: 5px; align-items: flex-start; margin-top: 20px">
+
+					    <div style="margin-left: 20px">
+
+                  <div style="margin-top: 20px">Please Enter Your Budget</div>
+                  <input id="budgetInp" type="text" style="width: 80%; border-color:#FFFACC; border-radius: 5px; margin-top: 5px">
+
+                  <button id="calculateButton" style="color: #53131E; width: 60%; margin-top: 8px; border-radius: 5px; border-color: #FFFACC; padding: 5px; background-color: #B5D6B2; color: #FFFACC"> Calculate</button>
+              </div>
+			    </div>
+      
+			    <div style ="display:flex; flex-direction: column;align-items: center; width: 10%; margin-top: 20px; margin-left: 20px">BUDGET
+              <img src="money-bill-alt-solid.svg" style="margin-top: 2px; width: 30px">
+      	      <div id="budgetDisplay" style="color:#53131E; font-weight: bold"> </div>
+			    </div>
+
+			    <div style="display: flex; flex-direction: column; align-items: center; margin-left: 50px; margin-top: 20px; width: 10%;"> EXPENSES
+              <img src="credit-card-regular.svg" style="margin-top: 2px; width: 30px">
+				      <div id="expensesDisplay" style="color:red; font-weight: bold"> </div>
+			    </div>
+
+          <div style="display: flex; flex-direction: column; align-items: center; margin-left: 50px; margin-top: 20px; width: 10%"> BALANCE
+              <img src="dollar-sign-solid.svg" style="margin-top: 2px; width: 16px">
+              <div id="balanceDisplay" style="color:#53131E; font-weight: bold"> </div>
+          </div>
+      </div>
+
+
+      <div style="display: flex; justify-content: flex-start;align-items: flex-start; width: 100%">
+          <div style="display: flex; justify-content: center; border: 3px solid #5A464C; width: 400px; height: 200px; flex-direction: column; border-radius: 5px; align-items: flex-start; margin-top: 50px">
+      
+              <div style="margin-left: 20px">
+                  <div>Please Enter Your Expense</div>
+                  <input type="text" id='expenseName' style="width: 80%; margin-top: 5px; border-color: #5A464C; border-radius: 5px"/>
+
+                  <div style="margin-top: 20px; ">Please Enter Your Expense Amount</div>
+
+                  <input type="text" id="expenseAmount" style="width: 80%; margin-top:5px; border-color: #5A464C; border-radius:5px"/>
+
+                  <button style="color: red; width: 60%; margin-top: 8px; border-radius: 5px; border-color: #5A464C; padding: 5px; background-color: #B5D6B2; color: #5A464C" id="expButton" > Add Expense</button>
+              </div>
+          </div> 
+
+					<table>
+						<thead>
+							<tr>
+								<th>Expense Title</th>
+								<th>Expense Value</th>
+							</tr>
+						<thead>
+						<tbody>
+
+						</tbody>
+					</table>
+
+		  </div>
+
+      <div style="display:flex; width:100%; justify-content:center; margin-top: 10px">
+          <button style="border-radius: 5px; background-color:#53131E; border-color: 53131E; color: white" id='backButton'> 
+              Back
+          </button>
+          <button style="border-radius: 5px; margin-left:5px; background-color:#53131E; border-color: 53131E; color: white" id='clearButton'> 
+              Clear
+          </button>
+          <button style="border-radius: 5px; margin-left:5px;background-color:#53131E; border-color: 53131E; color: white" id='saveButton'> 
+              Save
+          </button>
+	    </div> 
+      </div>
+  </div>
+
+  <div id="goodbye" style="display: none">
+      <div style="width: 190px; height: 400px; margin: 0 auto; padding: 20px; border-radius: 15px; background-color: #B5D6B2; display: flex; align-items: center;flex-direction: column ">
+          <img src="coins-solid.svg" style="width: 30px" "height: 10px">
+          <div style="width: 100%; text-align: center; margin-top: 25px">Budget Master</div>
+          <div id="goodbyeMessage" style="font-size: 26px; margin-top: 35px"></div>
+          <div style="margin-top: 5px; text-align: center"> your changes are saved in the database.</div>
+          <div style="display:block; margin-top: 5px" class="spinner">
+                    <div class="bounce1"></div>
+                    <div class="bounce2"></div>
+                    <div class="bounce3"></div>    
+          </div> 
+          <div style="margin-top: 12px; text-align: center"> Shortly, you get redirected to the main screen.</div> 
+      </div>
+  </div>
+
+
+  <form method='POST' action='/formhandler'>
+      <input type="text" name='name' placeholder="name"/>
+      <input type="text" name='occupation' placeholder="occupation"/>
+      <button>send</button>
+  </form>
+
+
+   
+
+
+    
+    <script src="script.js"></script>
+  </body>
+</html>
