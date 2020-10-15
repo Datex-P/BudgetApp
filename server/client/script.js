@@ -34,13 +34,32 @@ let userDataBase = {
 
 
 document.getElementById('loginButton').onclick = function () {
-	let userNameExists = userDataBase[loginName.value];
-	if (userNameExists && userNameExists.password === password.value) {
-		startRender(userNameExists,loginName.value)
-    currentlyLoggedIn = loginName.value;
-	}else{
-		alert('Invalid username or password.')
-	}
+	fetch('/login',{
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({
+			username: loginName.value,
+			password: password.value
+		})
+	})
+	.then(data=>data.json())
+	.then(res=>{
+		if(res === null){
+			alert(`sucj user do not exist try another credential or register`)
+		}else{
+			startRender(res,res.username)
+    	currentlyLoggedIn = res.username;
+		}
+
+	})
+	// let userNameExists = userDataBase[loginName.value];
+	// if (userNameExists && userNameExists.password === password.value) {
+		
+	// }else{
+	// 	alert('Invalid username or password.')
+	// }
 }
 
 
@@ -126,7 +145,7 @@ registerButton.onclick = function () {
 					budget: 0,
 					expenses: 0,
 					history:[],
-					pas$word: newUserPassword.value
+					password: newUserPassword
 				})
 			})
 			.then(data=>data.json())

@@ -42,7 +42,7 @@ app.post('/register',(req,res)=>{
   })
 })
 
-app.post('/formhandler',(req,res)=>{
+app.post('/login',(req,res)=>{
   // fs.writeFile('./output.json',JSON.stringify(req.body),()=>{
   //   res.send('your form was sended succfully')
   // });
@@ -55,17 +55,18 @@ app.post('/formhandler',(req,res)=>{
       
       collection.findOne(req.body,(err,result)=>{
         if(err){
-          res.json(err)
+          console.log(err)
+          res.json(null)
         }else{
-          if(result === null){
-            if(!object[ip]){
-              object[ip] = 0
-            }
-            object[ip]+= 1
-            res.send(`you have ${object[ip]} wrong inputs`)
-          }else{
+          // if(result === null){
+          //   if(!object[ip]){
+          //     object[ip] = 0
+          //   }
+          //   object[ip]+= 1
+          //   res.json(`you have ${object[ip]} wrong inputs`)
+          // }else{
             res.json(result)
-          }
+          // }
           
         }
         client.close();
