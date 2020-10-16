@@ -225,10 +225,24 @@ document.getElementById('calculateButton').onclick = function () {
   } else if (Number(budgetInput.value) ===0) {
     alert('Please enter a number bigger than 0.')
   }else {
-    userDataBase[name].budget += Number(budgetInput.value)
-    budgetDisplay.innerText = userDataBase[name].budget+'$'
-    balanceDisplay.innerText = userDataBase[name].budget - userDataBase[name].expenses+ '$'
-    budgetInput.value = ''
+		fetch('/update',{
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify({
+				username: currentlyLoggedIn,
+				budget: Number(budgetInput.value)
+			})
+		})
+		.then(data=>data.json())
+		.then(user=>{
+			budgetDisplay.innerText = user.budget+'$'
+			balanceDisplay.innerText = user.budget - user.expenses+ '$'
+			budgetInput.value = ''
+		})
+
+    
   }
 }
 
